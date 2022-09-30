@@ -5,7 +5,7 @@ var mysql = require('mysql');
 const connection = require('./db/connection');
 
 const PORT = process.env.PORT || 3000;
-const app = express();
+// const app = express();
 
 // Establish connection -> connection.js file --> also welcome screen
 connection.connect(function (err) {
