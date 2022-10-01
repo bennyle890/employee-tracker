@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 const path = require('path');
 // var mysql = require('mysql');
 const connection = require('./db/connection');
+const Employee = require('./lib/js/employee');
 
 const PORT = process.env.PORT || 3000;
 // const app = express();
@@ -79,6 +80,50 @@ const viewEmployees = () => {
 }
 
 // Add Employee
-
+const addEmployee = () => {
+    connection.query('SELECT * FROM role', function (err, res) {
+        if (err) throw err;
+        inquirer
+            .prompt([
+                {
+                    type: 'input',
+                    message: 'What is the employee\'s first name?',
+                    name: 'first_name'
+                },
+                {
+                    type: 'input',
+                    message: 'What is the employee\'s last name?',
+                    name: 'last_name'
+                },
+                {
+                    type: 'list',
+                    message: 'What is the employee\'s role?',
+                    name: 'employee_role',
+                    choices: function (){
+                        let choiceArray = [];
+                        for (let i = 0; i < res.length; i++) {
+                            choiceArray.push(res[i].title);
+                        }
+                        return choiceArray;
+                    }
+                },
+                {
+                    type: 'input',
+                    message: 'What is the employee\'s manager\'s name?',
+                    name: 'manager'
+                }
+            ])
+            .then(answers => {
+                let roleID;
+                for (let i = 0; i < res.length; i++) {
+                    if (res[i].title === answers.employee_role) {
+                        roleID = res[i].id;
+                    }
+                }
+                const employee = new Employee(connection, answers.first_name, answers.last_name, answers.manager, roleID);
+                employee.createEmployee();
+            })
+    })
+}
 
 exports.ask = ask;
