@@ -1,7 +1,7 @@
 const express = require('express');
 const inquirer = require('inquirer');
 const path = require('path');
-var mysql = require('mysql');
+// var mysql = require('mysql');
 const connection = require('./db/connection');
 
 const PORT = process.env.PORT || 3000;
@@ -67,5 +67,18 @@ const ask = () => {
         console.log(error);
     })
 };
+
+// View All Employees 
+const viewEmployees = () => {
+    connection.query("SELECT employee.id, first_name, last_name, manager, department_name, title, salary FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id",
+    function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        ask();
+    });
+}
+
+// Add Employee
+
 
 exports.ask = ask;
