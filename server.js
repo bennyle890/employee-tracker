@@ -162,6 +162,54 @@ const viewRoles = () => {
 }
 
 //Add role
+const addRole = () => {
+    connection.query("SELECT * FROM department", function (err, res) {
+        if (err) throw err;
+        inquirer 
+            .prompt([
+                {
+                    type: 'input',
+                    message: 'What is the title of the role?',
+                    name: 'title'
+                },
+                {
+                    type: 'input',
+                    message: 'What is the salary?',
+                    name: 'salary',
+                    validate: function (input) {
+                        if (isNaN(input) === false) {
+                            return true;
+                        } else {
+                            return 'Please enter a valid number.';
+                        }
+                    }
+                },
+                {
+                    type: 'list',
+                    message: 'What department would you like this role to be in?',
+                    name: 'department',
+                    choices: function () {
+                        let choiceArray = [];
+                        for (let i = 0; i < res.length; i++) {
+                            choiceArray.push(res[i].department_name);
+                        }
+                        return choiceArray;
+                    }
+                }
+            ])
+            .then(answers => {
+                let department_id;
+                for (let i = 0; i < res.length; i++) {
+                    if (answers.department === res[i].department_name) {
+                        department_id = res[i].id;
+                    }
+                }
+                const role = new Role(connection, answers.title, answers.salary, department_id);
+                role.createRole();
+            })
+    })
+};
+
 
 
 exports.ask = ask;
