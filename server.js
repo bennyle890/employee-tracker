@@ -210,6 +210,15 @@ const addRole = () => {
     })
 };
 
+// View Departments
+const viewDepartments = () => {
+    connection.query("SELECT department_name FROM department",
+    function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        ask();
+    });
+};
 
 
 exports.ask = ask;
