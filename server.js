@@ -126,4 +126,42 @@ const addEmployee = () => {
     })
 }
 
+// Update Roles
+const updateRoles = () => {
+    connection.query('SELECT first_name, last_name FROM employee',
+    function (err, res) {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+                type: 'list',
+                message: 'Which employee\'s role would you like to update?',
+                name: 'employee',
+                choices: function () {
+                    let choiceArray = [];
+                    for (let i = 0; i < res.length; i++) {
+                        choiceArray.push(res[i].first_name + ' ' + res[i].last_name);
+                    }
+                    return choiceArray;
+                }
+            }
+        ])
+        .then(answer => {
+            setNewRole(answer.employee);
+        })
+    })
+};
+
+// View all roles
+const viewRoles = () => {
+    connection.query("SELECT title, department_name, salary FROM role LEFT JOIN department ON role.department_id = department.id",
+        function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            ask();
+        });
+}
+
+//Add role
+
+
 exports.ask = ask;
