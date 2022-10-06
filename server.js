@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 // Establish connection -> connection.js file --> also welcome screen
 connection.connect(function (err) {
     if (err) throw err;
-    console.log('/n---- Welcome to Employee Tracker! ----/n');
+    console.log('\n---- Welcome to Employee Tracker! ----\n');
     ask();
 });
 
