@@ -1,8 +1,5 @@
 # Employee Tracker
 
-  ![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)
-
-
   # Description
 This is an employee tracker that allows you to manage a company's employee using node, inquirer, and MySQL. You are able to add/view employees, departments, and roles. 
 
