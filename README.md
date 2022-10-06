@@ -18,7 +18,7 @@ This is an employee tracker that allows you to manage a company's employee using
 
   Attached below is a photo of Visual Code with an example of the employee tracker:
 
-<!-- ![ReadMe Photo](./Develop/images/ReadMeGen.png) -->
+![Employee Tracking photo](/assets/employee-tracker.png)
 
   # Questions
   If you have any questions about the repository, please contact/email benny.le890@gmail.com <br />
