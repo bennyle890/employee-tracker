@@ -221,5 +221,19 @@ const viewDepartments = () => {
 };
 
 // Add Department
+const addDepartment = () => {
+    inquirer
+        .prompt([
+            {
+                type: 'input', 
+                message: 'What is the name of this department?',
+                name: 'dept_name'
+            }
+        ])
+        .then(answers => {
+            const department = new Department(connection, answers.dept_name);
+            department.createDepartment();
+        })
+};
 
 exports.ask = ask;
