@@ -1,6 +1,6 @@
 const express = require('express');
 const inquirer = require('inquirer');
-const path = require('path');
+const Department  = require('./lib/js/department');
 // var mysql = require('mysql');
 const connection = require('./db/connection');
 const Employee = require('./lib/js/employee');
