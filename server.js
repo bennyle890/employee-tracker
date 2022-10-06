@@ -1,12 +1,9 @@
-const express = require('express');
 const inquirer = require('inquirer');
 const Department  = require('./lib/js/department');
-// var mysql = require('mysql');
-const connection = require('./db/connection');
+const Role = require('./lib/js/role');
 const Employee = require('./lib/js/employee');
+const connection = require('./db/connection');
 
-const PORT = process.env.PORT || 3000;
-// const app = express();
 
 // Establish connection -> connection.js file --> also welcome screen
 connection.connect(function (err) {
@@ -25,7 +22,7 @@ const ask = () => {
             choices: [
                 'View All Employees',
                 'Add Employee',
-                'Update Employee Role',
+                'Update Employee Roles',
                 'View All Roles',
                 'Add Role',
                 'View All Departments',
@@ -139,6 +136,7 @@ const updateRoles = () => {
                 choices: function () {
                     let choiceArray = [];
                     for (let i = 0; i < res.length; i++) {
+
                         choiceArray.push(res[i].first_name + ' ' + res[i].last_name);
                     }
                     return choiceArray;
