@@ -150,7 +150,6 @@ const setNewRole = employeeName => {
                     let roleId = res[i].id;
                     const first_name = employeeName.split(' ')[0];
                     const last_name = employeeName.split(' ')[1];
-                    // const manager = employeeName.split(' ')[1];
 
                     const updatedRole = new Employee(connection, first_name, last_name, roleId)
                     updatedRole.updateEmployee();
