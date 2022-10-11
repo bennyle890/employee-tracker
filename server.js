@@ -123,6 +123,43 @@ const addEmployee = () => {
     })
 }
 
+const setNewRole = employeeName => {
+    connection.query("SELECT id, title FROM role",
+        function (err, res) {
+            if (err) throw err;
+            console.log(res);
+            
+          inquirer.prompt([
+            {
+                type: 'list',
+                message: 'What is the employee\'s NEW role?',
+                name: 'new_role',
+                choices: function () {
+                    let choiceArray = [];
+                    for (let i = 0; i < res.length; i++) {
+                        choiceArray.push(res[i].title);
+                    }
+                    return choiceArray;
+                }
+            }
+          ])
+
+          .then(answer => {
+            for (let i = 0; i < res.length; i++) {
+                if (answer.new_role === res[i].title) {
+                    let roleId = res[i].id;
+                    const first_name = employeeName.split(' ')[0];
+                    const last_name = employeeName.split(' ')[1];
+                    // const manager = employeeName.split(' ')[1];
+
+                    const updatedRole = new Employee(connection, first_name, last_name, roleId)
+                    updatedRole.updateEmployee();
+                }
+            }
+          })
+        });
+}
+
 // Update Roles
 const updateRoles = () => {
     connection.query('SELECT first_name, last_name FROM employee',
